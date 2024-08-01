@@ -62,7 +62,7 @@ def plot_RTs(fname_base):
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + '_RTs.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1] + '_RTs.png', bbox_inches='tight', transparent=True, dpi=500)
 
     plt.show()
 
@@ -163,8 +163,8 @@ def average_measures(measures, mask):
     return HP, Alphas, dz_means_mean, dz_means_error, T_s_mean, T_s_error, perf_accs_mean, perf_accs_error, perf_accs
 
 
-def plot_two_alphas_together():
-    folder = 'repeated_experiments_rules=(0,0,0,0,2)_total_alphas=_0.2,0.8__measure_optimization=True_nets_per_total_alpha=50'
+def plot_two_alphas_together(mask=None):
+    folder = 'results/repeated_experiments_rules=(0,0,0,0,2)_total_alphas=_0.2,0.8__measure_optimization=True_nets_per_total_alpha=50'
     fname1 = folder + '/alpha=0.800000.pt'
     fname2 = folder + '/alpha=0.200000.pt'
 
@@ -175,11 +175,11 @@ def plot_two_alphas_together():
 
     measures1 = torch.load(fname1)
     HP1, Alphas1, dz_means_mean1, dz_means_error1, T_s_mean1, T_s_error1, perf_accs_mean1, perf_accs_error1, _ = average_measures(
-        measures1, mask='invert_dzs')
+        measures1, mask)
 
     measures2 = torch.load(fname2)
     HP2, Alphas2, dz_means_mean2, dz_means_error2, T_s_mean2, T_s_error2, perf_accs_mean2, perf_accs_error2, _ = average_measures(
-        measures2, mask='invert_dzs')
+        measures2, mask)
 
     epochs = np.arange(0, HP1['batches_per_alpha'] * HP1['alpha_steps'] + 1) * HP1['batch']
     middle_epoch_ind = HP1['batches_per_alpha'] + 1
@@ -201,7 +201,7 @@ def plot_two_alphas_together():
     yticks = np.sort(np.concatenate((np.unique(Alphas1), np.unique(Alphas2), np.array([0.]))))
     plt.yticks(yticks, fontsize=12)
     plt.tight_layout()
-    plt.savefig(folder + '_two_alphas_alphas.png', transparent=True, bbox_inches='tight', dpi=600)
+    plt.savefig(folder.split('/')[1] + '_two_alphas_alphas.png', transparent=True, bbox_inches='tight', dpi=600)
 
     # plt.sca(ax[1])
     plt.figure(figsize=(4, 3))
@@ -219,7 +219,7 @@ def plot_two_alphas_together():
     plt.xticks([0, epochs[middle_epoch_ind - 1], epochs[-1]], fontsize=12)
     plt.yticks(fontsize=12)
     plt.tight_layout()
-    plt.savefig(folder + '_two_alphas_accs.png', transparent=True, bbox_inches='tight', dpi=600)
+    plt.savefig(folder.split('/')[1]  + '_two_alphas_accs.png', transparent=True, bbox_inches='tight', dpi=600)
 
     # plt.sca(ax[2])
     plt.figure(figsize=(4, 3))
@@ -236,7 +236,7 @@ def plot_two_alphas_together():
     plt.xticks([0, epochs[middle_epoch_ind - 1], epochs[-1]], fontsize=12)
     plt.yticks(fontsize=12)
     plt.tight_layout()
-    plt.savefig(folder + '_two_alphas_dz.png', transparent=True, bbox_inches='tight', dpi=600)
+    plt.savefig(folder.split('/')[1]  + '_two_alphas_dz.png', transparent=True, bbox_inches='tight', dpi=600)
 
     plt.figure(figsize=(4, 3))
     plt.axvline(x=epochs[middle_epoch_ind], color='black', linestyle='--', lw=1)
@@ -252,12 +252,12 @@ def plot_two_alphas_together():
     plt.xticks([0, epochs[middle_epoch_ind - 1], epochs[-1]], fontsize=12)
     plt.yticks(fontsize=12)
     plt.tight_layout()
-    plt.savefig(folder + '_two_alphas_theta.png', transparent=True, bbox_inches='tight', dpi=600)
+    plt.savefig(folder.split('/')[1]  + '_two_alphas_theta.png', transparent=True, bbox_inches='tight', dpi=600)
 
     plt.show()
 
 
-def concept_rule_ratio(dir, eta_ratio, beta, gamma):
+def concept_rule_ratio(dir, eta_ratio, beta, gamma, mask='alpha_from_0.1'):
     if eta_ratio:
         fnames = glob.glob(dir + f'\*_eta_ratio={eta_ratio:.6f}.pt')
     elif beta:
@@ -279,6 +279,10 @@ def concept_rule_ratio(dir, eta_ratio, beta, gamma):
     final_perf_accs_mean, final_perf_accs_err = [], []
     for fname in fnames:
         all_measures = torch.load(fname)
+
+        if mask == 'alpha_from_0.1':
+            if all_measures[-1]['HP']['total_alpha'] < 0.1:
+                continue
 
         if eta_ratio:
             fname_alphas.append(float(fname[fname.find('\\alpha=') + len('\\alpha='):fname.find('_eta_ratio=')]))
@@ -414,7 +418,7 @@ def plot_concept_rule_ratios(fname_base, eta_ratio=None, beta=None, gamma=None):
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + '_' + rule + '_concept_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1]  + '_' + rule + '_concept_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
 
     plt.show()
 
@@ -497,7 +501,7 @@ def plot_eta_ratios(fname_base):
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + f'_{rule}_concept_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1] + f'_{rule}_concept_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
 
     for i in range(len(fname_alphas3)):
         plt.figure(figsize=(4, 3))
@@ -512,7 +516,7 @@ def plot_eta_ratios(fname_base):
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + f'_{rule}_eta_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1] + f'_{rule}_eta_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
     plt.show()
 
 
@@ -527,8 +531,9 @@ def plot_betas(fname_base):
 
     fname_alphas3, valid_alphas3, yields3, yield_errs3, ratios3, ratios_errs3, betas3 = [], [], [], [], [], [], []
     for dir in dirs:
-        betas = eval(dir[dir.find('betas=') + len('betas='):[m.start() for m in re.finditer("\)", dir)][1] + 1])
-
+        betas1 = eval(
+            dir[dir.find('betas=') + len('betas='):[m.start() for m in re.finditer("\)", dir)][1] + 1])
+        betas = np.sort(np.concatenate([betas1, -betas1]))
         fname_alphas_eta = []
         valid_alphas_eta = []
         yields_eta = []
@@ -565,14 +570,10 @@ def plot_betas(fname_base):
         alpha_stars_errs_eta = []
         valid_betas_eta = []
         for j in range(len(fname_alphas3[0])):
-            plt.errorbar(valid_alphas3[i][j], ratios3[i][j], yerr=np.array(ratios_errs3[i][j]).T, color=color,
-                         alpha=(j + 0.3) / (len(fname_alphas3[0]) + 0.3))
             guess = (1, 0.5)
             try:
                 popt, pcov = curve_fit(sigmoid, valid_alphas3[i][j], ratios3[i][j], guess)
                 perr = np.sqrt(np.diag(pcov))
-                plt.plot(valid_alphas3[i][j], sigmoid(valid_alphas3[i][j], *popt), color=fit_color,
-                         alpha=(j + 0.3) / (len(fname_alphas3[0]) + 0.3))
                 if popt[1] >= 0:
                     alpha_stars_eta.append(popt[1])
                     alpha_stars_errs_eta.append(perr[1] * 1.96)
@@ -595,11 +596,15 @@ def plot_betas(fname_base):
         plt.xlim(-1.1, 1.1)
         plt.xticks(fontsize=12)
         xlims = plt.gca().get_xlim()
-        plt.hlines(y=0.3, xmin=xlims[0], xmax=xlims[1], linestyle='dashed', color='gray', zorder=1)
+        if rule == 'size' or rule == 'color':
+            alphabar = 0.34
+        elif rule == 'number':
+            alphabar = 0.35
+        plt.hlines(y=alphabar, xmin=xlims[0], xmax=xlims[1], linestyle='dashed', color='gray', zorder=1)
         plt.xlim(xlims)
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + f'_{rule}_betas.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1] + f'_{rule}_betas.png', bbox_inches='tight', transparent=True, dpi=500)
 
     plt.show()
 
@@ -694,7 +699,7 @@ def plot_gammas(fname_base):
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + f'_{rule}_concept_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1] + f'_{rule}_concept_ratios.png', bbox_inches='tight', transparent=True, dpi=500)
 
     for i in range(len(fname_alphas3)):
         plt.figure(figsize=(4, 3))
@@ -709,7 +714,7 @@ def plot_gammas(fname_base):
 
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + f'_{rule}_gammas.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1] + f'_{rule}_gammas.png', bbox_inches='tight', transparent=True, dpi=500)
     plt.show()
 
 
@@ -742,7 +747,7 @@ def plot_just_training(fname):
 
     plt.yticks(fontsize=12)
     plt.tight_layout()
-    plt.savefig(fname.split('/')[0] + '_just_training.png', transparent=True, bbox_inches='tight', dpi=600)
+    plt.savefig(fname.split('/')[1] + '_just_training.png', transparent=True, bbox_inches='tight', dpi=600)
     plt.show()
 
 
@@ -785,7 +790,8 @@ def acc_vs_alpha(fname_base):
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
         plt.tight_layout()
-        plt.savefig(fname_base + '_' + rule + '_accs_vs_alphas.png', bbox_inches='tight', transparent=True, dpi=500)
+        plt.savefig(fname_base.split('/')[1] + '_' + rule + '_accs_vs_alphas.png', bbox_inches='tight',
+                    transparent=True, dpi=500)
     plt.show()
 
 
@@ -795,34 +801,34 @@ if __name__ == '__main__':
     # The Figures of the simplified model are plotted within their code files (see the folder "\linear")
 
     # Figure 2 left
-    fname = 'repeated_experiments_rules=(0,0,2,0,0)_just_training=True_measure_optimization=True_total_alphas=_0.5__nets_per_total_alpha=100/alpha=0.500000.pt'
-    plot_just_training(fname)
+    # fname = 'results/repeated_experiments_rules=(0,0,2,0,0)_just_training=True_measure_optimization=True_total_alphas=_0.5__nets_per_total_alpha=100/alpha=0.500000.pt'
+    # plot_just_training(fname)
 
     # Figure 2 right
-    # fname_base = 'repeated_experiments_rules=(2,0,0,0,0)'
+    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)'
     # acc_vs_alpha(fname_base)
 
     # Figures 4 and 5
-    # plot_two_alphas_together(mask = 'invert_dzs')
+    # plot_two_alphas_together(mask='invert_dzs')
 
     # Figure 6
-    # fname_base = 'repeated_experiments_rules=(2,0,0,0,0)'
+    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_nets_per_total_alpha=100'
     # plot_concept_rule_ratios(fname_base)
 
     # Figure S5
-    # fname_base = 'repeated_experiments_rules=(2,0,0,0,0)'
+    # fname_base = 'results/repeated_experiments_rules=(0,0,0,0,2)_only_for_RT=True_measure_optimization=True_nets_per_total_alpha=50'
     # plot_RTs(fname_base)
 
     # Figure 8
-    # fname_base = 'repeated_experiments_rules=(2,0,0,0,0)_gammas=1_np.linspace(0.25,4,9)_total_alphas=np.linspace(0.1,1,18)_nets_per_total_alpha=50'
+    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_gammas=1_np.linspace(0.25,4,9)_nets_per_total_alpha=50'
     # plot_gammas(fname_base)
 
     # Figure 9
-    # fname_base = 'repeated_experiments_rules=(2,0,0,0,0)_eta_ratios=np.logspace(-2,2,9,base=2)_total_alphas=np.linspace(0.1,1,18)_nets_per_total_alpha=50'
+    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_eta_ratios=np.logspace(-2,2,9,base=2)_nets_per_total_alpha=50'
     # plot_eta_ratios(fname_base)
 
     # Figure 12 right
-    # fname_base = 'repeated_experiments_rules=(2,0,0,0,0)_betas=pm_np.linspace(0.1,1,9)_with_neg_betas=False_nets_per_total_alpha=50'
+    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_betas=np.linspace(0.1,1,9)_nets_per_total_alpha=50'
     # plot_betas(fname_base)
 
     pass
