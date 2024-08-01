@@ -164,7 +164,7 @@ def average_measures(measures, mask):
 
 
 def plot_two_alphas_together(mask=None):
-    folder = 'results/repeated_experiments_rules=(0,0,0,0,2)_total_alphas=_0.2,0.8__measure_optimization=True_nets_per_total_alpha=50'
+    folder = 'results/res_rules=(0,0,0,0,2)_total_alphas=_0.2,0.8__measure_optimization=True_nets_per_total_alpha=50'
     fname1 = folder + '/alpha=0.800000.pt'
     fname2 = folder + '/alpha=0.200000.pt'
 
@@ -801,34 +801,34 @@ if __name__ == '__main__':
     # The Figures of the simplified model are plotted within their code files (see the folder "\linear")
 
     # Figure 2 left
-    # fname = 'results/repeated_experiments_rules=(0,0,2,0,0)_just_training=True_measure_optimization=True_total_alphas=_0.5__nets_per_total_alpha=100/alpha=0.500000.pt'
+    # fname = 'results/res_rules=(0,0,2,0,0)_just_training=True_measure_optimization=True_total_alphas=_0.5__nets_per_total_alpha=100/alpha=0.500000.pt'
     # plot_just_training(fname)
 
     # Figure 2 right
-    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)'
+    # fname_base = 'results/res_rules=(2,0,0,0,0)'
     # acc_vs_alpha(fname_base)
 
     # Figures 4 and 5
     # plot_two_alphas_together(mask='invert_dzs')
 
     # Figure 6
-    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_nets_per_total_alpha=100'
+    # fname_base = 'results/res_rules=(2,0,0,0,0)_nets_per_total_alpha=100'
     # plot_concept_rule_ratios(fname_base)
 
     # Figure S5
-    # fname_base = 'results/repeated_experiments_rules=(0,0,0,0,2)_only_for_RT=True_measure_optimization=True_nets_per_total_alpha=50'
+    # fname_base = 'results/res_rules=(0,0,0,0,2)_only_for_RT=True_measure_optimization=True_nets_per_total_alpha=50'
     # plot_RTs(fname_base)
 
     # Figure 8
-    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_gammas=1_np.linspace(0.25,4,9)_nets_per_total_alpha=50'
+    # fname_base = 'results/res_rules=(2,0,0,0,0)_gammas=1_np.linspace(0.25,4,9)_nets_per_total_alpha=50'
     # plot_gammas(fname_base)
 
     # Figure 9
-    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_eta_ratios=np.logspace(-2,2,9,base=2)_nets_per_total_alpha=50'
+    # fname_base = 'results/res_rules=(2,0,0,0,0)_eta_ratios=np.logspace(-2,2,9,base=2)_nets_per_total_alpha=50'
     # plot_eta_ratios(fname_base)
 
     # Figure 12 right
-    # fname_base = 'results/repeated_experiments_rules=(2,0,0,0,0)_betas=np.linspace(0.1,1,9)_nets_per_total_alpha=50'
+    # fname_base = 'results/res_rules=(2,0,0,0,0)_betas=np.linspace(0.1,1,9)_nets_per_total_alpha=50'
     # plot_betas(fname_base)
 
     pass
