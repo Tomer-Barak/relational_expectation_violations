@@ -804,7 +804,7 @@ if __name__ == '__main__':
     # plot_just_training(fname)
 
     # Figure 2 right
-    # fname_base = 'results/res_rules=(2,0,0,0,0)'
+    # fname_base = 'results/res_rules=(2,0,0,0,0)_nets_per_total_alpha=100'
     # acc_vs_alpha(fname_base)
 
     # Figures 4 and 5
