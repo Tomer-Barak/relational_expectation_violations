@@ -797,7 +797,6 @@ def acc_vs_alpha(fname_base):
 
 if __name__ == '__main__':
     # The functions below reconstruct the paper Figures related to the ANN.
-    # To run these functions, you need to first obtain the results of the ANN using main.py. See instructions in GitHub.
     # The Figures of the simplified model are plotted within their code files (see the folder "\linear")
 
     # Figure 2 left
