@@ -2,7 +2,7 @@
 How do ANNs resolve relational cognitive dissonances where two adaptation pathways are possible? This repository reconstructs the results and figures of the paper "Is it me, or is A larger than B: Relational cognitive dissonances with two adaptation pathways modeled by artificial neural networks".
 
 ## Figures reconstruction based on existing results
-Run the functions in the main of plots.py.
+Uncomment and run the functions at the bottom of plots.py
 The Figures of the simplified models can be reconstructed by the code files in the folder "/linear".
 
 ## Generating results
