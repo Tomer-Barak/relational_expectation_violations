@@ -1,38 +1,10 @@
-# Relational Cognitive Dissonances
-How do ANNs resolve relational cognitive dissonances where two adaptation pathways are possible? This repository reconstructs the results and figures of the paper "Is it me, or is A larger than B: Relational cognitive dissonances with two adaptation pathways modeled by artificial neural networks".
+# Two pathways to resolve relational inconsistencies
 
-Authors: Tomer Barak and Yonatan Loewenstein.
+## Authors
+Tomer Barak and Yonatan Loewenstein
 
-## Figures reconstruction based on existing results
+## Abstract
+When individuals encounter observations that violate their expectations, will they adjust their expectations or maintain them despite the observations? Naively, one would predict that the larger the violation, the greater the adaptation. However, experiments reveal that when violations are extreme, individuals are more likely to hold on to their prior expectations rather than adjust them. Specifically, we focus on adaptation to violations of expected \textit{relationships}, such as when individuals expect objects of type A to be smaller than objects B, but observe the opposite. Now the question becomes whether or not they will adjust their expectation about the relationship between the two objects (to A being larger than B). To address this puzzle, we tested the adaptation of artificial neural networks (ANNs) capable of relational learning and found a similar phenomenon: While small violations lead to adjustments of expected relations, large violations prompt changes in object representations, avoiding the adaptation of the relational expectations. Using a simplified model, we demonstrate how this effect arises from standard learning dynamics. Finally, we discuss how intermediate steps are expected to influence whether or not individuals will adapt their expected relation. 
+
+## Reconstructing the figures
 Uncomment and run the functions at the bottom of plots.py
-The Figures of the simplified models can be reconstructed by the code files in the folder "/linear".
-
-## Generating results
-
-### Figure 2 left
-
-python main.py rules="(0,0,2,0,0)" just_training=True measure_optimization=True total_alphas=[0.5] nets_per_total_alpha=100
-
-### Figures 2 right and 6
-
-python main.py rules="(0,0,2,0,0)" nets_per_total_alpha=100
-
-### Figures 4 and 5
-
-python main.py rules="(0,0,2,0,0)" total_alphas=[0.2,0.8] measure_optimization=True nets_per_total_alpha=50
-
-### Figure S5
-
-python main.py rules="(0,0,2,0,0)" only_for_RT=True measure_optimization=True nets_per_total_alpha=50
-
-### Figure 8
-
-python main.py rules="(0,0,2,0,0)" gammas=1_np.linspace(0.25,4,9) nets_per_total_alpha=50
-
-### Figure 9
-
-python main.py rules="(0,0,2,0,0)" eta_ratios=np.logspace(-2,2,9,base=2) nets_per_total_alpha=50
-
-### Figure 12 right
-
-python main.py rules="(0,0,2,0,0)" betas=np.linspace(0.1,1,9) with_neg_betas=True nets_per_total_alpha=50

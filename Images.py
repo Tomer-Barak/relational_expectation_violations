@@ -269,13 +269,23 @@ def one_example(HP, shapes_g, positions_g, colors_g, numbers_g, sizes_g):
     return tiles
 
 
-def create_batch(HP):
+def create_batch(HP = None):
+    if HP is None:
+        HP = {'grid_size': 224, 'channels': 3, 'plot_examples': True, 'plot_evaluation': False,
+              'rules': {"color": 0,
+                        "position": 0,
+                        "size": 2,
+                        "shape": 0,
+                        "number": 0},
+              'alpha': 0.5,
+              'batch': 5}
+
     shapes_g, positions_g, colors_g, numbers_g, sizes_g = initialize_feature_generators(HP)
 
     images = []
     for i in range(HP['batch']):
         images.append(one_example(HP, shapes_g, positions_g, colors_g, numbers_g, sizes_g))
-    images = torch.tensor(np.array(images)).float() * HP['gamma_in']
+    images = torch.tensor(np.array(images)).float()
     return images
 
 
@@ -317,10 +327,4 @@ if __name__ == "__main__":
 
     create_batch(HP)
 
-    # alphas = [-0.2, 0.2, 0.8, -0.8]
-    # for alpha in alphas:
-    #     HP['alpha'] = alpha
-    #     create_batch(HP)
-
-    # for alpha in alphas:
     plot_batch(f"alpha={0.5}_rule=(0, 0, 2, 0, 0)_0.png")
