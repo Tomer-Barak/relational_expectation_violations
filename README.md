@@ -8,4 +8,4 @@ When individuals encounter observations that violate their expectations, will th
 
 ## Reconstructing the figures
 Uncomment and run the functions at the bottom of plots.py.  
-Use main.py to run the ANN experiments.
+To fully reconstruct the ANN experiments, use main.py.
