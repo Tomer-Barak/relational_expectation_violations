@@ -897,50 +897,48 @@ if __name__ == '__main__':
     # Images.create_batch()
     # Images.plot_batch('alpha=0.5_rule=(0, 0, 2, 0, 0)_0.png')
 
-    # Figure 2 left
+    # Figure 2 a
     # fname = 'results/res_rules=(0,0,2,0,0)_just_training=True_measure_optimization=True_total_alphas=_0.5__nets_per_total_alpha=100/alpha=0.500000.pt'
     # plot_just_training(fname)
 
-    # Figure 2 right
+    # Figure 2 b
     # fname_base = 'results/res_rules=(0,0,2,0,0)_nets_per_total_alpha=100'
     # acc_vs_alpha(fname_base)
 
-    # Figure 3
+    # Figure 2 c-d
     # folder = 'results/res_rules=(0,0,2,0,0)_total_alphas=_0.2,0.8__measure_optimization=True_nets_per_total_alpha=50'
     # two_fixed_points(folder, net=0)
     # two_fixed_points(folder, net=1)
 
-    # Figure 4
+    # Figure 3
     # folder = 'results/res_rules=(0,0,2,0,0)_total_alphas=_0.2,0.8__measure_optimization=True_nets_per_total_alpha=50'
     # plot_two_alphas_together(folder, mask='invert_dzs')
 
-    # Figure 5
+    # Figure 4
     # fname_base = 'results/res_rules=(2,0,0,0,0)_nets_per_total_alpha=100'
     # plot_concept_rule_ratios(fname_base)
 
-    # Figure 6
+    # Figure 5
     # ANN_adaptation_pattern()
 
-    # Figure 7
+    # Figure 6
     # fname_base = 'results/res_rules=(2,0,0,0,0)_betas=np.linspace(0.1,1,9)_nets_per_total_alpha=50'
     # plot_betas(fname_base)
 
-    # Figure 8
+    # Figure 7
     # import curriculum_quivers as cq
     # cq.create_single_quiver_plot(alpha_from=0.5, alpha_to=-0.5, lambda_=0.1)
     # plt.show()
     # cq.create_single_quiver_plot(alpha_from=2, alpha_to=-2, lambda_=0.1)
     # plt.show()
 
-    # Figure 9
+    # Figure 8
     # import curriculum_quivers as cq
     # fig_alpha_tos = cq.plot_different_alpha_tos()
     # plt.show()
     # fig_alpha_ratios = cq.plot_different_alpha_ratios()
     # plt.show()
-
-    # Figure 10
-    # import curriculum_quivers as cq
     # cq.plot_crossing_phase_diagram(lambda_=0.1)
+    # plt.show()
 
     pass
