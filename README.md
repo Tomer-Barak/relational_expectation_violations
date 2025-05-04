@@ -1,5 +1,7 @@
 # Two pathways to resolve relational inconsistencies
 
+[Arxiv](https://arxiv.org/abs/2411.05809v2)
+
 ## Authors
 Tomer Barak and Yonatan Loewenstein
 
